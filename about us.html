@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - GlioMap</title>
+  <style>
+   
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+    
+    .vertical-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    
+    .side-logo {
+      width: 100%;
+      max-width: 100px;
+      margin-bottom: 20px;
+      background-color: #ddd;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+      color: #666;
+      font-size: 12px;
+    }
+    .side-logo img {
+  max-width: 100%;
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+    
+    .vertical-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .vertical-nav li {
+      margin-bottom: 10px;
+    }
+    
+    .vertical-nav a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    
+    .vertical-nav a:hover,
+    .vertical-nav a.active {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    main {
+      margin-left: 240px;
+      padding: 20px;
+      max-width: 1000px;
+    }
+    
+    .equation {
+      text-align: center;
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #007bff;
+    }
+    
+    h1 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      color: #333;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+    
+    h4 {
+      color: #666;
+      font-size: 1.5em;
+    }
+    
+    h5 {
+      text-align: center;
+      color: #999;
+      margin: 30px 0;
+    }
+    
+    ul {
+      line-height: 1.6;
+    }
+    
+    p {
+      line-height: 1.6;
+      margin: 15px 0;
+      color: #555;
+      text-align: justify;
+    }
+    
+    .about-us {
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      border-left: 4px solid #007bff;
+      margin-bottom: 30px;
+    }
+    
+    .contributors {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+      margin-bottom: 30px;
+    }
+    
+    .contributors ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .contributors li {
+      margin-bottom: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    
+    .contributors li:last-child {
+      border-bottom: none;
+    }
+    
+    .features-section {
+      background-color: #e8f4fd;
+      padding: 25px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      border-left: 4px solid #007bff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .feature-card h4 {
+      color: #007bff;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    
+    .feature-card p {
+      margin: 0;
+      font-size: 0.9em;
+      text-align: left;
+    }
+    
+    .mission-section {
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    
+    .mission-section h3 {
+      color: #856404;
+      margin-top: 0;
+    }
+    
+    .technical-specs {
+      background-color: #f1f3f4;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+    
+    .technical-specs h4 {
+      color: #333;
+      margin-top: 0;
+      font-size: 1.2em;
+    }
+    
+    .technical-specs ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    
+    .technical-specs li {
+      margin-bottom: 5px;
+    }
+    
+    footer {
+      margin-top: 50px;
+      padding: 20px 0;
+      border-top: 1px solid #dee2e6;
+      text-align: center;
+      color: #6c757d;
+    }
+    
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    @media (max-width: 768px) {
+      .vertical-nav {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+      
+      main {
+        margin-left: 0;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Vertical Sidebar -->
+  <aside class="vertical-nav">
+    <div class="side-logo">
+      <img src="logo.png" alt="GlioMap Logo">
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="main function.html">Main Functions</a></li>
+      <li><a href="radiomic.html">Radiomic Features</a></li>
+      <li><a href="morphological.html">Morphological Features</a></li>
+      <li><a href="manuscript.html">Manuscript</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section class="about-us">
+      <h1>About GlioMap</h1>
+      <p>
+        <strong>GlioMap</strong> is an innovative open-source graphical user interface (GUI) tool specifically designed to assist researchers, radiologists, and medical professionals in the comprehensive analysis of brain gliomas using advanced MRI imaging techniques. Our software integrates cutting-edge radiomic and morphological feature extraction methodologies with intuitive visualization tools and robust manual segmentation support.
+      </p>
+      <p>
+        Developed entirely in MATLAB, GlioMap provides seamless support for industry-standard NIfTI and DICOM image formats. The platform's sophisticated architecture enables automated tumor segmentation, comprehensive radiomic feature computation, and interactive region-of-interest (ROI) analysis, establishing it as an indispensable tool for both clinical glioma research and diagnostic applications.
+      </p>
+      <p>
+        This project represents a significant academic and research initiative, with the primary objective of democratizing access to efficient, reliable, and scientifically validated tools within the medical imaging and radiology community. By providing open-source access, we aim to accelerate research progress and improve patient outcomes worldwide.
+      </p>
+    </section>
+
+    <section class="features-section">
+      <h2>Key Capabilities</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h4>Advanced Image Processing</h4>
+          <p>Comprehensive preprocessing including skull stripping, bias field correction, and normalization algorithms.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Automated Segmentation</h4>
+          <p>Fuzzy C-means clustering and BET-based algorithms for precise tumor boundary detection.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Radiomic Analysis</h4>
+          <p>Extraction of first-order, second-order, and higher-order texture features for quantitative analysis.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Morphological Features</h4>
+          <p>Comprehensive shape and geometric analysis including volume, surface area, and complexity metrics.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Interactive Visualization</h4>
+          <p>Real-time slice navigation, contrast adjustment, and multi-planar reconstruction capabilities.</p>
+        </div>
+        <div class="feature-card">
+          <h4>ROI Management</h4>
+          <p>Advanced region-of-interest tools for manual refinement and quality control of segmentations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="technical-specs">
+      <h4>Technical Specifications</h4>
+      <ul>
+        <li><strong>Platform:</strong> MATLAB (R2019b or later recommended)</li>
+        <li><strong>Supported Formats:</strong> NIfTI (.nii, .nii.gz), DICOM (.dcm), and multiple other medical imaging formats</li>
+        <li><strong>Image Types:</strong> T1, T2, FLAIR, T1-contrast enhanced, DWI, and multi-parametric MRI</li>
+        <li><strong>Output Formats:</strong> CSV, Excel, MAT files for feature data; NIfTI for processed images</li>
+        <li><strong>Operating Systems:</strong> Windows, macOS, Linux</li>
+        <li><strong>Memory Requirements:</strong> Minimum 8GB RAM (16GB recommended for large datasets)</li>
+      </ul>
+    </section>
+
+    <section class="mission-section">
+      <h3>Our Mission</h3>
+      <p>
+        To advance the field of medical imaging by providing accessible, validated, and comprehensive analysis tools that bridge the gap between cutting-edge research and clinical practice. We believe in the power of open-source collaboration to accelerate scientific discovery and improve patient care in neuro-oncology.
+      </p>
+    </section>
+
+    <section class="contributors">
+      <h2>Project Contributors</h2>
+      <ul>
+        <li><strong>Project Lead:</strong> Your Name</li>
+        <li><strong>Affiliation:</strong> Your University / Research Institution</li>
+        <li><strong>Department:</strong> Medical Imaging / Biomedical Engineering</li>
+        <li><strong>Email:</strong> your.email@example.com</li>
+        <li><strong>GitHub Repository:</strong> <a href="https://github.com/GlioMap/GlioMap-GUI" target="_blank">GlioMap Official Repository</a></li>
+        <li><strong>Documentation:</strong> <a href="#" target="_blank">User Manual & API Documentation</a></li>
+        <li><strong>Research Publications:</strong> <a href="manuscript.html">View Related Publications</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Citation</h2>
+      <p>If you use GlioMap in your research, please cite our work:</p>
+      <div class="equation">
+        <em>[Author names]. "GlioMap: An Open-Source Tool for Comprehensive Glioma Analysis Using MRI." [Journal Name], [Year]. DOI: [DOI number]</em>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 GlioMap Project. All rights reserved. | Licensed under <a href="#">MIT License</a></p>
+    </footer>
+  </main>
+</body>
+</html>

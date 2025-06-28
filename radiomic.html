@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Radiomic Features - GlioMap</title>
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <style>
+  
+      body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+    
+    .vertical-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    
+    .side-logo {
+      width: 100%;
+      max-width: 100px;
+      margin-bottom: 20px;
+      background-color: #ddd;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+      color: #666;
+      font-size: 12px;
+    }
+    .side-logo img {
+  max-width: 100%;
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+    
+    .vertical-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .vertical-nav li {
+      margin-bottom: 10px;
+    }
+    
+    .vertical-nav a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    
+    .vertical-nav a:hover,
+    .vertical-nav a.active {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    main {
+      margin-left: 240px;
+      padding: 20px;
+      max-width: 1000px;
+    }
+    
+    .equation {
+      text-align: center;
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #007bff;
+      border-radius: 5px;
+      font-family: 'Times New Roman', serif;
+      overflow-x: auto;
+    }
+    
+    h1 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    h2 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      color: #333;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+    
+    h4 {
+      color: #007bff;
+      font-size: 2em;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    h5 {
+      text-align: center;
+      color: #999;
+      margin: 30px 0;
+    }
+    
+    h6 {
+      color: #007bff;
+      font-size: 1.1em;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    
+    ul {
+      line-height: 1.6;
+    }
+    
+    p {
+      line-height: 1.6;
+      margin: 15px 0;
+      color: #555;
+      text-align: justify;
+    }
+    
+    .function-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #fafafa;
+      border-radius: 8px;
+      border-left: 4px solid #007bff;
+    }
+    
+    .function-number {
+      background-color: #007bff;
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .mathematical-section {
+      background-color: #f8f9fa;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .mathematical-section h5 {
+      color: #007bff;
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      border-bottom: 1px solid #007bff;
+      padding-bottom: 5px;
+    }
+    
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .file-formats {
+      background-color: #e8f4fd;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #007bff;
+      margin: 15px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .vertical-nav {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+      
+      main {
+        margin-left: 0;
+      }
+      
+      .equation {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+  
+</head>
+
+<body>
+  
+   <aside class="vertical-nav">
+    <div class="side-logo">
+     <img src="logo.png" alt="GlioMap Logo">
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="main function.html">Main function</a></li>
+      <li><a href="radiomic.html" class="active">Radiomic Features</a></li>
+      <li><a href="morphological.html">Morphological Features</a></li>
+      <li><a href="manuscript.html">Manuscript</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section>
+      <h4>Radiomic Features in GlioMap</h4>
+    </section>
+
+    <section class="content">
+      <h1>First-Order Statistical Features</h1>
+
+      <div class="feature">
+        <h3>1. Mean</h3>
+        <p>Average intensity:</p>
+        <div class="equation">$$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>2. Median</h3>
+        <p>The middle value of the sorted intensities.</p>
+      </div>
+
+      <div class="feature">
+        <h3>3. Mode</h3>
+        <p>The most frequent intensity value.</p>
+      </div>
+
+      <div class="feature">
+        <h3>4. Minimum</h3>
+        <p>Smallest intensity: \( \min(x_i) \)</p>
+      </div>
+
+      <div class="feature">
+        <h3>5. Maximum</h3>
+        <p>Largest intensity: \( \max(x_i) \)</p>
+      </div>
+
+      <div class="feature">
+        <h3>6. Range</h3>
+        <p>Difference between max and min:</p>
+        <div class="equation">$$ \text{Range} = \max(x) - \min(x) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>7. Interquartile Range (IQR)</h3>
+        <p>Middle 50% spread:</p>
+        <div class="equation">$$ \text{IQR} = Q_3 - Q_1 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>8. Variance</h3>
+        <p>Spread of intensity values:</p>
+        <div class="equation">$$ \sigma^2 = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - \mu)^2 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>9. Standard Deviation</h3>
+        <p>Root of variance:</p>
+        <div class="equation">$$ \sigma = \sqrt{ \frac{1}{N-1} \sum (x_i - \mu)^2 } $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>10. Skewness</h3>
+        <p>Asymmetry of distribution:</p>
+        <div class="equation">$$ \text{Skewness} = \frac{1}{N} \sum_{i=1}^{N} \left( \frac{x_i - \mu}{\sigma} \right)^3 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>11. Kurtosis</h3>
+        <p>Tailedness (excess):</p>
+        <div class="equation">$$ \text{Kurtosis} = \frac{1}{N} \sum_{i=1}^{N} \left( \frac{x_i - \mu}{\sigma} \right)^4 - 3 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>12. Energy</h3>
+        <p>Sum of squared intensities:</p>
+        <div class="equation">$$ \text{Energy} = \sum_{i=1}^{N} x_i^2 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>13. Entropy</h3>
+        <p>Measure of randomness:</p>
+        <div class="equation">$$ \text{Entropy} = -\sum_{j=1}^{B} p_j \log_2(p_j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>14. Uniformity</h3>
+        <p>Histogram smoothness:</p>
+        <div class="equation">$$ \text{Uniformity} = \sum_{j=1}^{B} p_j^2 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>15. Root Mean Square (RMS)</h3>
+        <p>Magnitude of signal:</p>
+        <div class="equation">$$ \text{RMS} = \sqrt{ \frac{1}{N} \sum_{i=1}^{N} x_i^2 } $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>16. Mean Absolute Deviation (MAD)</h3>
+        <p>Average deviation from mean:</p>
+        <div class="equation">$$ \text{MAD} = \frac{1}{N} \sum_{i=1}^{N} |x_i - \mu| $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>17. Robust MAD</h3>
+        <p>Mean absolute deviation from the trimmed mean (10–90% data).</p>
+      </div>
+
+      <div class="feature">
+        <h3>18. Median Absolute Deviation</h3>
+        <p>Median of absolute deviations from median:</p>
+        <div class="equation">$$ \text{MAD}_{\text{median}} = \text{median}(|x_i - \text{median}(x)|) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>19. Coefficient of Variation (CoV)</h3>
+        <p>Standard deviation normalized by mean:</p>
+        <div class="equation">$$ \text{CoV} = \frac{\sigma}{\mu} $$</div>
+      </div>
+
+      <h5>________________________________________________________________________________________</h5>
+
+      <h1>GLCM Texture Features</h1>
+
+      <div class="section">
+        <h3>Notation</h3>
+        <ul>
+          <li>\( P(i,j) \): Normalized GLCM matrix</li>
+          <li>\( \mu_x = \sum_i i \sum_j P(i,j) \): Mean of reference pixel</li>
+          <li>\( \mu_y = \sum_j j \sum_i P(i,j) \): Mean of neighbor pixel</li>
+          <li>\( \sigma_x, \sigma_y \): Standard deviations along rows and columns</li>
+          <li>\( p_{x+y}(k) = \sum_{i+j=k} P(i,j) \): Sum distribution</li>
+          <li>\( p_{|x-y|}(k) = \sum_{|i-j|=k} P(i,j) \): Difference distribution</li>
+        </ul>
+      </div>
+
+      <div class="feature">
+        <h3>1. Autocorrelation</h3>
+        <p>Measures repetition of pixel pairs:</p>
+        <div class="equation">$$ \text{Autocorrelation} = \sum_{i,j} i \cdot j \cdot P(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>2. Contrast</h3>
+        <p>Local gray-level variations:</p>
+        <div class="equation">$$ \text{Contrast} = \sum_{i,j} (i - j)^2 \cdot P(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>3. Correlation</h3>
+        <p>Linear dependency between pixel pairs:</p>
+        <div class="equation">$$ \text{Correlation} = \frac{\sum_{i,j} (i - \mu_x)(j - \mu_y)P(i,j)}{\sigma_x \sigma_y} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>4. Cluster Prominence</h3>
+        <p>Sharpness or asymmetry in distribution:</p>
+        <div class="equation">$$ \text{Cluster Prominence} = \sum_{i,j} (i + j - \mu_x - \mu_y)^4 \cdot P(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>5. Cluster Shade</h3>
+        <p>Skewness of texture:</p>
+        <div class="equation">$$ \text{Cluster Shade} = \sum_{i,j} (i + j - \mu_x - \mu_y)^3 \cdot P(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>6. Dissimilarity</h3>
+        <p>Linear gray-level difference:</p>
+        <div class="equation">$$ \text{Dissimilarity} = \sum_{i,j} |i - j| \cdot P(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>7. Energy</h3>
+        <p>Angular second moment (uniformity):</p>
+        <div class="equation">$$ \text{Energy} = \sum_{i,j} P(i,j)^2 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>8. Entropy</h3>
+        <p>Texture randomness:</p>
+        <div class="equation">$$ \text{Entropy} = -\sum_{i,j} P(i,j) \log_2(P(i,j) + \epsilon) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>9. Homogeneity 1 (IDM)</h3>
+        <p>Inverse difference moment:</p>
+        <div class="equation">$$ \text{Homogeneity}_1 = \sum_{i,j} \frac{P(i,j)}{1 + (i - j)^2} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>10. Homogeneity 2 (IDN)</h3>
+        <p>Normalized homogeneity:</p>
+        <div class="equation">$$ \text{Homogeneity}_2 = \sum_{i,j} \frac{P(i,j)}{1 + \frac{|i - j|}{N}} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>11. Maximum Probability</h3>
+        <p>Maximum probability in GLCM:</p>
+        <div class="equation">$$ \text{Max Probability} = \max(P(i,j)) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>12. Sum Average</h3>
+        <p>Average of sum distribution:</p>
+        <div class="equation">$$ \text{Sum Average} = \sum_k k \cdot p_{x+y}(k) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>13. Sum Entropy</h3>
+        <p>Entropy of sum distribution:</p>
+        <div class="equation">$$ \text{Sum Entropy} = -\sum_k p_{x+y}(k) \log_2(p_{x+y}(k) + \epsilon) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>14. Sum Variance</h3>
+        <p>Spread around sum average:</p>
+        <div class="equation">$$ \text{Sum Variance} = \sum_k (k - \text{SumAvg})^2 \cdot p_{x+y}(k) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>15. Difference Entropy</h3>
+        <p>Entropy of difference distribution:</p>
+        <div class="equation">$$ \text{Diff Entropy} = -\sum_k p_{|x-y|}(k) \log_2(p_{|x-y|}(k) + \epsilon) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>16. Difference Variance</h3>
+        <p>Variance of difference distribution:</p>
+        <div class="equation">$$ \text{Diff Variance} = \sum_k (k - \mu)^2 \cdot p_{|x-y|}(k) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>17. Information Measure of Correlation 1</h3>
+        <p>Mutual dependence:</p>
+        <div class="equation">$$ \text{IMC}_1 = \frac{H_{XY} - H_{XY1}}{\max(H_X, H_Y)} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>18. Information Measure of Correlation 2</h3>
+        <p>Alternative mutual info measure:</p>
+        <div class="equation">$$ \text{IMC}_2 = \sqrt{1 - \exp(-2(H_{XY2} - H_{XY}))} $$</div>
+      </div>
+
+      <h5>________________________________________________________________________________________</h5>
+
+      <h1>Gray Level Run Length Matrix (GLRLM) Features</h1>
+
+      <div class="section variables">
+        <h3>Notation</h3>
+        <ul>
+          <li><strong>\( \text{GLRLM}(i,j) \)</strong>: Number of runs with gray level \( i \) and run length \( j \)</li>
+          <li><strong>\( i \)</strong>: Gray level index, \( i = 1, 2, \dots, G \)</li>
+          <li><strong>\( j \)</strong>: Run length index, \( j = 1, 2, \dots, R \)</li>
+          <li><strong>\( N \)</strong>: Total number of runs, \( N = \sum_{i=1}^{G} \sum_{j=1}^{R} \text{GLRLM}(i,j) \)</li>
+          <li><strong>\( G \)</strong>: Number of gray levels</li>
+          <li><strong>\( R \)</strong>: Maximum run length</li>
+          <li><strong>\( \text{Total Voxels in ROI} \)</strong>: Number of voxels in the region of interest (tumor region)</li>
+        </ul>
+      </div>
+
+      <div class="feature">
+        <h3>1. Short Run Emphasis (SRE)</h3>
+        <p>Measures the distribution of short runs, emphasizing fine textures.</p>
+        <div class="equation">$$ \text{SRE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} \frac{\text{GLRLM}(i,j)}{j^2} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>2. Long Run Emphasis (LRE)</h3>
+        <p>Measures the distribution of long runs, emphasizing coarse textures.</p>
+        <div class="equation">$$ \text{LRE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} j^2 \cdot \text{GLRLM}(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>3. Gray Level Non-Uniformity (GLNU)</h3>
+        <p>Measures variability of gray level values throughout the image.</p>
+        <div class="equation">$$ \text{GLNU} = \frac{1}{N} \sum_{i=1}^{G} \left( \sum_{j=1}^{R} \text{GLRLM}(i,j) \right)^2 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>4. Run Length Non-Uniformity (RLNU)</h3>
+        <p>Measures variability of run lengths throughout the image.</p>
+        <div class="equation">$$ \text{RLNU} = \frac{1}{N} \sum_{j=1}^{R} \left( \sum_{i=1}^{G} \text{GLRLM}(i,j) \right)^2 $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>5. Run Percentage (RP)</h3>
+        <p>Measures the density of runs relative to the total voxels in the ROI.</p>
+        <div class="equation">$$ \text{RP} = \frac{N}{\text{Total Voxels in ROI}} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>6. Low Gray Level Run Emphasis (LGRE)</h3>
+        <p>Measures the distribution of low gray-level runs, highlighting fine low-intensity textures.</p>
+        <div class="equation">$$ \text{LGRE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} \frac{\text{GLRLM}(i,j)}{i^2} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>7. High Gray Level Run Emphasis (HGRE)</h3>
+        <p>Measures the distribution of high gray-level runs, highlighting coarse high-intensity textures.</p>
+        <div class="equation">$$ \text{HGRE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} i^2 \cdot \text{GLRLM}(i,j) $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>8. Short Run Low Gray Level Emphasis (SRLGE)</h3>
+        <p>Measures the joint distribution of short runs with low gray levels.</p>
+        <div class="equation">$$ \text{SRLGE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} \frac{\text{GLRLM}(i,j)}{i^2 \cdot j^2} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>9. Short Run High Gray Level Emphasis (SRHGE)</h3>
+        <p>Measures the joint distribution of short runs with high gray levels.</p>
+        <div class="equation">$$ \text{SRHGE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} \frac{i^2 \cdot \text{GLRLM}(i,j)}{j^2} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>10. Long Run Low Gray Level Emphasis (LRLGE)</h3>
+        <p>Measures the joint distribution of long runs with low gray levels.</p>
+        <div class="equation">$$ \text{LRLGE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} \frac{j^2 \cdot \text{GLRLM}(i,j)}{i^2} $$</div>
+      </div>
+
+      <div class="feature">
+        <h3>11. Long Run High Gray Level Emphasis (LRHGE)</h3>
+        <p>Measures the joint distribution of long runs with high gray levels.</p>
+        <div class="equation">$$ \text{LRHGE} = \frac{1}{N} \sum_{i=1}^{G} \sum_{j=1}^{R} i^2 \cdot j^2 \cdot \text{GLRLM}(i,j) $$</div>
+      </div>
+
+      <h5>________________________________________________________________________________________</h5>
+
+      <h1>GLSZM Features</h1>
+
+      <div class="section">
+        <h3>Notation</h3>
+        <ul>
+          <li>\( \text{GLSZM}(i, j) \): Number of zones with gray level \( i \) and size \( j \)</li>
+          <li>\( N_g \): Number of gray levels</li>
+          <li>\( N_s \): Number of zone sizes</li>
+          <li>\( N_z \): Total number of zones</li>
+          <li>\( N_p \): Total number of voxels in ROI</li>
+          <li>\( s_g(i) = \sum_{j=1}^{N_s} \text{GLSZM}(i, j) \): Zones with gray level \( i \)</li>
+          <li>\( s_z(j) = \sum_{i=1}^{N_g} \text{GLSZM}(i, j) \): Zones with size \( j \)</li>
+        </ul>
+      </div>
+
+      <div class="feature">
+        <h3>1. Small Area Emphasis (SAE)</h3>
+        <div class="equation">
+          \[
+          \text{SAE} = \frac{1}{N_z} \sum_{j=1}^{N_s} \frac{s_z(j)}{j^2}
+          \]
+        </div>
+        <p>Measures the prevalence of small zones. High SAE suggests finer textures or many small homogeneous areas.</p>
+      </div>
+
+      <div class="feature">
+        <h3>2. Large Area Emphasis (LAE)</h3>
+        <div class="equation">
+          \[
+          \text{LAE} = \frac{1}{N_z} \sum_{j=1}^{N_s} s_z(j) \cdot j^2
+          \]
+        </div>
+        <p>Highlights larger homogeneous zones. High LAE implies coarser textures with large uniform areas.</p>
+      </div>
+
+      <div class="feature">
+        <h3>3. Gray Level Non-Uniformity (GLNU)</h3>
+        <div class="equation">
+          \[
+          \text{GLNU} = \frac{1}{N_z} \sum_{i=1}^{N_g} \left( s_g(i) \right)^2
+          \]
+        </div>
+        <p>Measures how gray levels are distributed. Low values suggest uniform gray levels in zones.</p>
+      </div>
+	  
+	  <h5>________________________________________________________________________________________</h5>
+<h1>Gray Level Size Zone Matrix (GLSZM) Features</h1>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( \text{GLSZM}(i, j) \): Number of zones with gray level \( i \) and size \( j \)</li>
+        <li>\( N_g \): Number of gray levels</li>
+        <li>\( N_s \): Number of zone sizes</li>
+        <li>\( N_z \): Total number of zones</li>
+        <li>\( N_p \): Total number of voxels in ROI</li>
+        <li>\( s_g(i) = \sum_{j=1}^{N_s} \text{GLSZM}(i, j) \): Gray level distribution</li>
+        <li>\( s_z(j) = \sum_{i=1}^{N_g} \text{GLSZM}(i, j) \): Zone size distribution</li>
+    </ul>  
+</div>
+
+<div class="feature">
+    <h3>4. Zone Size Non-Uniformity (ZSNU)</h3>
+    <p>Quantifies how zone sizes vary. Higher values imply dominance by certain zone sizes:</p>
+    <div class="equation">$$ \text{ZSNU} = \frac{1}{N_z} \sum_{j=1}^{N_s} \left( s_z(j) \right)^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>5. Zone Percentage (ZP)</h3>
+    <p>Ratio of total zones to total voxels in ROI. Indicates texture fragmentation:</p>
+    <div class="equation">$$ \text{ZP} = \frac{N_z}{N_p} $$</div>
+</div>
+
+<div class="feature">
+    <h3>6. Low Gray Level Zone Emphasis (LGZE)</h3>
+    <p>Emphasizes zones with low gray-level intensities:</p>
+    <div class="equation">$$ \text{LGZE} = \frac{1}{N_z} \sum_{i=1}^{N_g} \frac{s_g(i)}{i^2} $$</div>
+</div>
+
+<div class="feature">
+    <h3>7. High Gray Level Zone Emphasis (HGZE)</h3>
+    <p>Gives importance to zones with higher intensity values:</p>
+    <div class="equation">$$ \text{HGZE} = \frac{1}{N_z} \sum_{i=1}^{N_g} s_g(i) \cdot i^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>8. Small Area Low Gray Level Emphasis (SALGLE)</h3>
+    <p>Combines small zone sizes and low gray-levels, emphasizing fine dark textures:</p>
+    <div class="equation">$$ \text{SALGLE} = \frac{1}{N_z} \sum_{i=1}^{N_g} \sum_{j=1}^{N_s} \frac{\text{GLSZM}(i, j)}{i^2 j^2} $$</div>
+</div>
+
+<div class="feature">
+    <h3>9. Small Area High Gray Level Emphasis (SAHGLE)</h3>
+    <p>Highlights small regions with high intensity, potentially indicating bright, small lesions:</p>
+    <div class="equation">$$ \text{SAHGLE} = \frac{1}{N_z} \sum_{i=1}^{N_g} \sum_{j=1}^{N_s} \frac{\text{GLSZM}(i, j) \cdot i^2}{j^2} $$</div>
+</div>
+
+<div class="feature">
+    <h3>10. Large Area Low Gray Level Emphasis (LALGLE)</h3>
+    <p>Focuses on large, uniform dark zones within the image:</p>
+    <div class="equation">$$ \text{LALGLE} = \frac{1}{N_z} \sum_{i=1}^{N_g} \sum_{j=1}^{N_s} \frac{\text{GLSZM}(i, j) \cdot j^2}{i^2} $$</div>
+</div>
+
+<div class="feature">
+    <h3>11. Large Area High Gray Level Emphasis (LAHGLE)</h3>
+    <p>Detects large, bright homogeneous zones—often related to aggressive pathology:</p>
+    <div class="equation">$$ \text{LAHGLE} = \frac{1}{N_z} \sum_{i=1}^{N_g} \sum_{j=1}^{N_s} \text{GLSZM}(i, j) \cdot i^2 \cdot j^2 $$</div>
+</div>
+
+<h5>________________________________________________________________________________________</h5>
+<h1>Gray Level Dependence Matrix (GLDM) Features</h1>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( \text{GLDM}(i, j) \): Number of voxels with gray level \( i \) and dependence \( j \)</li>
+        <li>\( N_g \): Number of gray levels</li>
+        <li>\( N_d \): Number of dependence levels</li>
+        <li>\( N_s \): Total number of voxel entries in the GLDM matrix</li>
+        <li>\( i \): Gray level index</li>
+        <li>\( j \): Dependence level index</li>
+    </ul>
+</div>
+
+<div class="feature">
+    <h3>1. Small Dependence Emphasis (SDE)</h3>
+    <p>Emphasizes small dependence counts. High SDE indicates many small neighborhoods of similar intensity:</p>
+    <div class="equation">$$ \text{SDE} = \frac{1}{N_s} \sum_{j=1}^{N_d} \frac{p_j}{j^2} $$</div>
+</div>
+
+<div class="feature">
+    <h3>2. Large Dependence Emphasis (LDE)</h3>
+    <p>Highlights large dependence regions. High LDE implies coarse textures with extended similar intensity areas:</p>
+    <div class="equation">$$ \text{LDE} = \frac{1}{N_s} \sum_{j=1}^{N_d} p_j \cdot j^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>3. Gray Level Non-Uniformity (GLN)</h3>
+    <p>Measures non-uniformity of gray levels. Low GLN means uniform gray-level distribution:</p>
+    <div class="equation">$$ \text{GLN} = \frac{1}{N_s} \sum_{i=1}^{N_g} p_i^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>4. Dependence Non-Uniformity (DN)</h3>
+    <p>Measures non-uniformity of dependence sizes. Higher DN reflects dominance of certain dependence levels:</p>
+    <div class="equation">$$ \text{DN} = \frac{1}{N_s} \sum_{j=1}^{N_d} p_j^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>5. Dependence Entropy (DE)</h3>
+    <p>Captures the randomness in dependence distribution. Higher DE implies more texture complexity:</p>
+    <div class="equation">$$ \text{DE} = -\sum_{i=1}^{N_g} \sum_{j=1}^{N_d} \text{GLDM}(i,j) \log_2(\text{GLDM}(i,j) + \epsilon) $$</div>
+</div>
+
+<div class="feature">
+    <h3>6. Dependence Variance (DV)</h3>
+    <p>Variance of dependence size around the mean. Indicates spread of dependence levels:</p>
+    <div class="equation">$$ \text{DV} = \sum_{i=1}^{N_g} \sum_{j=1}^{N_d} (j - \mu_j)^2 \cdot \text{GLDM}(i,j) $$</div>
+</div>
+
+<div class="feature">
+    <h3>7. Gray Level Variance (GLV)</h3>
+    <p>Variance of gray levels in the matrix. Measures intensity dispersion:</p>
+    <div class="equation">$$ \text{GLV} = \sum_{i=1}^{N_g} \sum_{j=1}^{N_d} (i - \mu_i)^2 \cdot \text{GLDM}(i,j) $$</div>
+</div>
+
+<div class="feature">
+    <h3>8. Large Dependence High Gray Level Emphasis (LDHGLE)</h3>
+    <p>Highlights large dependent regions with high intensity values:</p>
+    <div class="equation">$$ \text{LDHGLE} = \frac{1}{N_s} \sum_{i=1}^{N_g} \sum_{j=1}^{N_d} i^2 \cdot j^2 \cdot \text{GLDM}(i,j) $$</div>
+</div>
+
+<div class="feature">
+    <h3>9. Large Dependence Low Gray Level Emphasis (LDLGLE)</h3>
+    <p>Emphasizes large areas of low gray levels, useful for highlighting dark homogeneous textures:</p>
+    <div class="equation">$$ \text{LDLGLE} = \frac{1}{N_s} \sum_{i=1}^{N_g} \sum_{j=1}^{N_d} \frac{j^2}{i^2} \cdot \text{GLDM}(i,j) $$</div>
+</div>
+
+<div class="feature">
+    <h3>10. Small Dependence High Gray Level Emphasis (SDHGLE)</h3>
+    <p>Captures bright regions with small dependence, potentially identifying small, intense lesions:</p>
+    <div class="equation">$$ \text{SDHGLE} = \frac{1}{N_s} \sum_{i=1}^{N_g} \sum_{j=1}^{N_d} \frac{i^2}{j^2} \cdot \text{GLDM}(i,j) $$</div>
+</div>
+
+<div class="feature">
+    <h3>11. Small Dependence Low Gray Level Emphasis (SDLGLE)</h3>
+    <p>Focuses on small, low-intensity zones often associated with fine dark textures:</p>
+    <div class="equation">$$ \text{SDLGLE} = \frac{1}{N_s} \sum_{i=1}^{N_g} \sum_{j=1}^{N_d} \frac{1}{i^2 j^2} \cdot \text{GLDM}(i,j) $$</div>
+</div>
+
+<h5>________________________________________________________________________________________</h5>
+<h1>Neighborhood Gray Tone Difference Matrix (NGTDM) Features</h1>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( s(i) \): Average absolute difference between gray level \( i \) and the mean of its neighbors</li>
+        <li>\( p(i) \): Probability of gray level \( i \) in the region of interest</li>
+        <li>\( N_g \): Number of gray levels with non-zero probability</li>
+        <li>\( \epsilon \): Small constant to prevent division by zero</li>
+    </ul>
+</div>
+
+<div class="feature">
+    <h3>1. Coarseness</h3>
+    <p>Measures the level of texture smoothness. A higher value implies a coarser and less detailed texture:</p>
+    <div class="equation">$$ \text{Coarseness} = \frac{1}{\epsilon + \sum_{i} p(i) \cdot s(i)} $$</div>
+</div>
+
+<div class="feature">
+    <h3>2. Contrast</h3>
+    <p>Quantifies the intensity variation between different gray levels. Higher values indicate greater variation or edges:</p>
+    <div class="equation">$$ \text{Contrast} = \left( \frac{1}{N_g (N_g - 1)} \right) \cdot \left( \sum_{i=1}^{N} s(i) \right) \cdot \left( \sum_{i} \sum_{j} p(i) \cdot p(j) \cdot (i - j)^2 \right) $$</div>
+</div>
+
+<div class="feature">
+    <h3>3. Busyness</h3>
+    <p>Measures the rate of gray level change across the image. High values suggest rapid changes and busy textures:</p>
+    <div class="equation">$$ \text{Busyness} = \frac{ \sum_{i} p(i) \cdot s(i) }{ \sum_{i} \sum_{j} | i \cdot p(i) - j \cdot p(j) | } $$</div>
+</div>
+
+<div class="feature">
+    <h3>4. Complexity</h3>
+    <p>Indicates how varied and unpredictable the texture is. High complexity means diverse and intricate structures:</p>
+    <div class="equation">$$ \text{Complexity} = \sum_{i} \sum_{j \ne i} \left( \frac{ |i - j| }{ N_g (p(i) + p(j)) } \right) \cdot (p(i) \cdot s(i) + p(j) \cdot s(j)) $$</div>
+</div>
+
+<div class="feature">
+    <h3>5. Strength</h3>
+    <p>Measures how prominent or strong the texture features are in terms of intensity and spatial arrangement:</p>
+    <div class="equation">$$ \text{Strength} = \frac{ \sum_{i} \sum_{j} (p(i) + p(j)) \cdot (i - j)^2 }{ \sum_{i} s(i) } $$</div>
+</div>
+
+<h5>________________________________________________________________________________________</h5>
+
+<h1>Wavelet-Based Radiomic Features</h1>
+
+<div class="section">
+    <p>Wavelet-based radiomic features involve performing a 3D discrete wavelet transform (DWT) on the masked MRI tumor region. The transformed subbands isolate texture patterns at various spatial resolutions and orientations. First-order statistics are then calculated on each subband to quantify intensity distribution and variability.</p>
+</div>
+
+<div class="section">
+    <h3>Wavelet Subbands</h3>
+    <p>Each wavelet decomposition generates 8 subbands, representing combinations of high (H) and low (L) pass filtering across 3 spatial dimensions (x, y, z):</p>
+    <ul>
+        <li><code>LLL</code>: Low-pass filtered in all directions (approximation)</li>
+        <li><code>LLH</code>, <code>LHL</code>, <code>LHH</code>: One or two high-pass directions</li>
+        <li><code>HLL</code>, <code>HLH</code>, <code>HHL</code>: High-pass in x and/or y</li>
+        <li><code>HHH</code>: High-pass in all directions (fine details)</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( x_i \): Intensity of voxel \( i \) in the wavelet subband</li>
+        <li>\( N \): Total number of non-zero (tumor) voxels in the subband</li>
+    </ul>
+</div>
+
+<div class="feature">
+    <h3>1. Mean</h3>
+    <p>Average voxel intensity:</p>
+    <div class="equation">$$ \text{Mean} = \frac{1}{N} \sum_{i=1}^{N} x_i $$</div>
+</div>
+
+<div class="feature">
+    <h3>2. Variance</h3>
+    <p>Intensity dispersion around the mean:</p>
+    <div class="equation">$$ \text{Variance} = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2 $$</div>
+    <p>where \( \mu \) is the mean intensity.</p>
+</div>
+
+<div class="feature">
+    <h3>3. Skewness</h3>
+    <p>Asymmetry of the intensity distribution:</p>
+    <div class="equation">$$ \text{Skewness} = \frac{1}{N} \sum_{i=1}^{N} \left( \frac{x_i - \mu}{\sigma} \right)^3 $$</div>
+</div>
+
+<div class="feature">
+    <h3>4. Kurtosis</h3>
+    <p>Peakedness or flatness of the distribution:</p>
+    <div class="equation">$$ \text{Kurtosis} = \frac{1}{N} \sum_{i=1}^{N} \left( \frac{x_i - \mu}{\sigma} \right)^4 $$</div>
+</div>
+
+<div class="feature">
+    <h3>5. Energy</h3>
+    <p>Sum of squared intensities (signal strength):</p>
+    <div class="equation">$$ \text{Energy} = \sum_{i=1}^{N} x_i^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>6. Root Mean Square (RMS)</h3>
+    <p>Magnitude of voxel intensities:</p>
+    <div class="equation">$$ \text{RMS} = \sqrt{ \frac{1}{N} \sum_{i=1}^{N} x_i^2 } $$</div>
+</div>
+
+<h5>________________________________________________________________________________________</h5>
+<h1>Gabor Filter Features</h1>
+
+<div class="section">
+    <p>Gabor filters are used to extract texture features from an image by convolving the image with sinusoidal waves modulated by a Gaussian envelope. They are parameterized by frequency, orientation, and standard deviation.</p>
+</div>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( x, y \): Coordinates in the filter window</li>
+        <li>\( \theta \): Orientation of the filter (in radians)</li>
+        <li>\( f \): Spatial frequency of the sinusoidal wave</li>
+        <li>\( \sigma \): Standard deviation of the Gaussian envelope</li>
+        <li>\( G(x,y) \): Value of the Gabor filter at position \((x,y)\)</li>
+    </ul>
+</div>
+
+<div class="feature">
+    <h3>Mathematical Equation</h3>
+    <p>Gabor filter definition:</p>
+    <div class="equation">$$ G(x,y) = \exp\left(-\frac{X_r^2 + Y_r^2}{2\sigma^2}\right) \cdot \cos\left(2 \pi f X_r\right) $$</div>
+    <p>where</p>
+    <div class="equation">$$ \begin{cases} X_r = x \cos \theta + y \sin \theta \\ Y_r = -x \sin \theta + y \cos \theta \end{cases} $$</div>
+</div>
+
+<div class="feature">
+    <h3>Feature Calculations</h3>
+    <p>Mean Amplitude: Average absolute response of the Gabor filter over the tumor region</p>
+    <p>Energy: Sum of squared filter responses:</p>
+    <div class="equation">$$ \text{Energy} = \sum_i |R_i|^2 $$</div>
+    <p>Variance: Variance of the filter responses</p>
+    <p>Standard Deviation: Standard deviation of the filter responses</p>
+    <p>Orientation Entropy: Entropy of responses across orientations:</p>
+    <div class="equation">$$ H = -\sum_{k} p_k \log_2(p_k) $$</div>
+    <p>where \( p_k \) is the normalized mean response for orientation \( k \)</p>
+    <p>Dominant Orientation: Orientation \( \theta_k \) corresponding to the maximum mean response</p>
+</div>
+
+<h5>________________________________________________________________________________________</h5>
+<h1>Fourier-Based Features</h1>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( P(u,v) \): Power spectrum at frequency coordinates \((u,v)\)</li>
+        <li>\( R \): Radial distance from the center frequency</li>
+        <li>\( \hat{P}(u,v) \): Normalized power spectrum</li>
+        <li>\( \epsilon \): Small positive constant to avoid \(\log(0)\)</li>
+        <li>\( \theta \): Angle in frequency domain</li>
+    </ul>
+</div>
+
+<div class="feature">
+    <h3>1. Spectral Energy</h3>
+    <p>Total energy of the power spectrum:</p>
+    <div class="equation">$$ E = \sum_{u,v} P(u,v) $$</div>
+</div>
+
+<div class="feature">
+    <h3>2. Spectral Entropy</h3>
+    <p>Measures the randomness in frequency distribution:</p>
+    <div class="equation">$$ H = - \sum_{u,v} \hat{P}(u,v) \log_2 \hat{P}(u,v) \quad \text{where} \quad \hat{P}(u,v) = \frac{P(u,v)}{\sum_{u,v} P(u,v)} $$</div>
+</div>
+
+<div class="feature">
+    <h3>3. Radial Power Spectrum</h3>
+    <p>Average power at radius \(r\):</p>
+    <div class="equation">$$ R = \sqrt{(u - u_c)^2 + (v - v_c)^2} $$</div>
+    <div class="equation">$$ \text{Radial Power at } r = \text{mean}\left\{ P(u,v) \mid r - 0.5 \leq R < r + 0.5 \right\} $$</div>
+</div>
+
+<div class="feature">
+    <h3>4. Low and High Frequency Power</h3>
+    <p>Sum of power inside inner 25% radius (low frequencies):</p>
+    <div class="equation">$$ P_{\text{low}} = \sum_{R \leq 0.25 R_{\max}} P(u,v) $$</div>
+    <p>Sum of power outside outer 25% radius (high frequencies):</p>
+    <div class="equation">$$ P_{\text{high}} = \sum_{R \geq 0.75 R_{\max}} P(u,v) $$</div>
+</div>
+
+<div class="feature">
+    <h3>5. Frequency Centroid</h3>
+    <p>Weighted average radius representing center of frequency mass:</p>
+    <div class="equation">$$ C = \frac{\sum_{u,v} R \cdot P(u,v)}{\sum_{u,v} P(u,v)} $$</div>
+</div>
+
+<div class="feature">
+    <h3>6. Dominant Frequency</h3>
+    <p>Radius at which the power spectrum attains maximum value:</p>
+    <div class="equation">$$ D = \arg\max_{u,v} P(u,v) \quad \rightarrow \quad R_D = \sqrt{(u - u_c)^2 + (v - v_c)^2} $$</div>
+</div>
+
+<div class="feature">
+    <h3>7. Texture Periodicity</h3>
+    <p>Measure of regularity by autocorrelation of power spectrum:</p>
+    <div class="equation">$$ \text{Periodicity} = \frac{\sigma(\text{Autocorr}_{\text{center}})}{\mu(\text{Autocorr}_{\text{center}})} $$</div>
+    <p>where \(\sigma\) and \(\mu\) are standard deviation and mean of the autocorrelation values in the central region.</p>
+</div>
+
+<div class="feature">
+    <h3>8. Directional Frequency Components</h3>
+    <p>Average power in four principal angular directions \(\theta_k \in \{0^\circ, 45^\circ, 90^\circ, 135^\circ\}\):</p>
+    <div class="equation">$$ P_{\theta_k} = \text{mean}\left\{ P(u,v) \mid |\angle(u,v) - \theta_k| \leq 22.5^\circ \right\} $$</div>
+</div>
+
+<h5>________________________________________________________________________________________</h5>
+<h1>Tamura Texture Features</h1>
+
+<div class="section">
+    <h3>Notation</h3>
+    <ul>
+        <li>\( I(x,y) \): Intensity at pixel \((x,y)\)</li>
+        <li>\( M_k(x,y) \): Average intensity in a window of size \( (2k+1) \times (2k+1) \) centered at \((x,y)\)</li>
+        <li>\( \mu \), \( \sigma^2 \): Mean and variance of intensities</li>
+        <li>\( m_4 \): Fourth central moment of intensity</li>
+        <li>\( G_x, G_y \): Gradient components in x and y directions</li>
+        <li>\( \theta \): Gradient orientation</li>
+        <li>\( h(\theta) \): Histogram of gradient orientations</li>
+        <li>\( N \): Number of bins in histogram</li>
+    </ul>
+</div>
+
+<div class="feature">
+    <h3>1. Coarseness</h3>
+    <p>Measures the size of texture primitives by evaluating average differences at multiple scales:</p>
+    <div class="equation">$$ M_k(x,y) = \frac{1}{(2k+1)^2} \sum_{i=-k}^k \sum_{j=-k}^k I(x+i, y+j) $$</div>
+    <p>Horizontal and vertical differences at scale \(k\):</p>
+    <div class="equation">$$ E_h^k(x,y) = | M_k(x+ k + 1, y) - M_k(x - k, y) |, \quad E_v^k(x,y) = | M_k(x, y + k + 1) - M_k(x, y - k) | $$</div>
+    <p>At each pixel, select scale \(S_{best}(x,y)\) maximizing these differences:</p>
+    <div class="equation">$$ S_{best}(x,y) = \arg\max_k \max \left( E_h^k(x,y), E_v^k(x,y) \right) $$</div>
+    <p>Coarseness is average of \( S_{best} \) over the region:</p>
+    <div class="equation">$$ \text{Coarseness} = \frac{1}{N} \sum_{x,y} S_{best}(x,y) $$</div>
+</div>
+
+<div class="feature">
+    <h3>2. Contrast</h3>
+    <p>Measures intensity variation, considering variance and kurtosis:</p>
+    <div class="equation">$$ \mu = \frac{1}{N} \sum I(x,y), \quad \sigma^2 = \frac{1}{N} \sum (I(x,y) - \mu)^2, \quad m_4 = \frac{1}{N} \sum (I(x,y) - \mu)^4 $$</div>
+    <p>Contrast defined as:</p>
+    <div class="equation">$$ \text{Contrast} = \frac{\sigma^2}{m_4^{1/4}} $$</div>
+</div>
+
+<div class="feature">
+    <h3>3. Directionality</h3>
+    <p>Quantifies the strength of texture direction based on gradient histogram:</p>
+    <div class="equation">$$ G_x = \frac{\partial I}{\partial x}, \quad G_y = \frac{\partial I}{\partial y} $$</div>
+    <div class="equation">$$ \theta = \arctan\left(\frac{G_y}{G_x}\right), \quad \theta \in [0^\circ, 180^\circ) $$</div>
+    <div class="equation">$$ h(\theta_i) = \text{normalized histogram of } \theta $$</div>
+    <p>Directionality is the sum of squared histogram peaks \(P\):</p>
+    <div class="equation">$$ \text{Directionality} = \sum_{i \in P} h(\theta_i)^2 $$</div>
+</div>
+
+<div class="feature">
+    <h3>4. Line-Likeness</h3>
+    <p>Measures similarity of gradient directions in neighboring pixels using co-occurrence matrix \(C\):</p>
+    <div class="equation">$$ C(a,b) = \frac{\# \text{neighbor pairs with directions } a \text{ and } b}{\text{total pairs}} $$</div>
+    <p>Line-likeness computed as diagonal dominance:</p>
+    <div class="equation">$$ \text{LineLikeness} = \frac{\sum_a C(a,a)}{\sum_{a,b} C(a,b)} $$</div>
+</div>
+
+<div class="feature">
+    <h3>5. Regularity</h3>
+    <p>Based on variance of local coarseness and contrast over subregions:</p>
+    <div class="equation">$$ \text{Regularity} = \frac{1}{1 + \mathrm{Var}(\text{Coarseness}) + \mathrm{Var}(\text{Contrast})} $$</div>
+</div>
+
+<div class="feature">
+    <h3>6. Roughness</h3>
+    <p>Combined measure of coarseness and contrast:</p>
+    <div class="equation">$$ \text{Roughness} = \text{Coarseness} + \text{Contrast} $$</div>
+</div>
+
+
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Main Functions - GlioMap</title>
+  <style>
+   
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+    
+    .vertical-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    
+    .side-logo {
+      width: 100%;
+      max-width: 100px;
+      margin-bottom: 20px;
+      background-color: #ddd;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+      color: #666;
+      font-size: 12px;
+    }
+    .side-logo img {
+  max-width: 100%;
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+    
+    .vertical-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .vertical-nav li {
+      margin-bottom: 10px;
+    }
+    
+    .vertical-nav a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    
+    .vertical-nav a:hover,
+    .vertical-nav a.active {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    main {
+      margin-left: 240px;
+      padding: 20px;
+      max-width: 1000px;
+    }
+    
+    .equation {
+      text-align: center;
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #007bff;
+      border-radius: 5px;
+      font-family: 'Times New Roman', serif;
+      overflow-x: auto;
+    }
+    
+    h1 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    h2 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      color: #333;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+    
+    h4 {
+      color: #007bff;
+      font-size: 2em;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    h5 {
+      text-align: center;
+      color: #999;
+      margin: 30px 0;
+    }
+    
+    h6 {
+      color: #007bff;
+      font-size: 1.1em;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    
+    ul {
+      line-height: 1.6;
+    }
+    
+    p {
+      line-height: 1.6;
+      margin: 15px 0;
+      color: #555;
+      text-align: justify;
+    }
+    
+    .function-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #fafafa;
+      border-radius: 8px;
+      border-left: 4px solid #007bff;
+    }
+    
+    .function-number {
+      background-color: #007bff;
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .mathematical-section {
+      background-color: #f8f9fa;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .mathematical-section h5 {
+      color: #007bff;
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      border-bottom: 1px solid #007bff;
+      padding-bottom: 5px;
+    }
+    
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .file-formats {
+      background-color: #e8f4fd;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #007bff;
+      margin: 15px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .vertical-nav {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+      
+      main {
+        margin-left: 0;
+      }
+      
+      .equation {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+  
+ 
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+ 
+  <aside class="vertical-nav">
+    <div class="side-logo">
+     <img src="logo.png" alt="GlioMap Logo">
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="main function.html" class="active">Main Functions</a></li>
+      <li><a href="radiomic.html">Radiomic Features</a></li>
+      <li><a href="morphological.html">Morphological Features</a></li>
+      <li><a href="manuscript.html">Manuscript</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <h4>Main Functions in GlioMap</h4>
+    
+    <div class="function-section">
+      <h3><span class="function-number">1</span>Load Module: Load the MRI Image</h3>
+      <p>GlioMap supports various file formats for comprehensive medical image analysis:</p>
+      <div class="file-formats">
+        <strong>Supported Formats:</strong> NIfTI (.nii, .nii.gz), MetaImage (.mhd, .mha), NRRD (.nrrd, .nhdr), DICOM (.dcm, .dicom), Analyze (.hdr, .img), FreeSurfer (.mgz, .mgh), GIPL (.gipl, .gipl.gz), VTK (.vtk, .vti, .vtp, .vtu), MINC (.mnc, .minc), PIC, LSM, and standard image formats (.tif, .png, .jpg, etc.).
+      </div>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">2</span>Skull Strip Module: Remove Skull Area from Images</h3>
+      <p>GlioMap uses a simplified version of the BET (Brain Extraction Tool) algorithm for skull stripping. The process involves several mathematical operations:</p>
+      
+      <div class="mathematical-section">
+        <h5>Brain Extraction Algorithm Steps</h5>
+        
+        <h6>Normalization:</h6>
+        <div class="equation">
+          \( I_{\mathrm{norm}}(x,y) = \frac{I(x,y) - \min(I)}{\max(I) - \min(I)} \)
+        </div>
+
+        <h6>Gaussian Smoothing:</h6>
+        <div class="equation">
+          \( G(x,y) = \frac{1}{2\pi\sigma^2} \exp\left(-\frac{x^2 + y^2}{2\sigma^2}\right) \)
+        </div>
+
+        <h6>Smoothed Image Convolution:</h6>
+        <div class="equation">
+          \( I_{\mathrm{smooth}}(x,y) = I_{\mathrm{norm}}(x,y) \ast G(x,y) \)
+        </div>
+
+        <h6>Intensity Thresholding:</h6>
+        <div class="equation">
+          \( T = \mathrm{threshold} \cdot \max(I_{\mathrm{smooth}}) \)
+        </div>
+
+        <h6>Morphological Operations:</h6>
+        <div class="equation">
+          Opening: \( M_{\mathrm{open}} = (M_{\mathrm{initial}} \ominus B) \oplus B \) <br>
+          Closing: \( M_{\mathrm{close}} = (M_{\mathrm{open}} \oplus B) \ominus B \)
+        </div>
+
+        <h6>Largest Connected Component Selection:</h6>
+        <div class="equation">
+          \( C_{\mathrm{max}} = \arg\max_i \left| C_i \right| \)
+        </div>
+
+        <h6>Final Smoothing:</h6>
+        <div class="equation">
+          \( M_{\mathrm{final}} = G_{\sigma=1} \ast M_{\mathrm{close}} \)
+        </div>
+
+        <h6>Binarization:</h6>
+        <div class="equation">
+          \( M_{\mathrm{binary}}(x,y) = \left[ \left( G_{\sigma=1} \ast M_{\mathrm{close}} \right)(x,y) > 0.5 \right] \)
+        </div>
+      </div>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">3</span>Preprocessing Module: Normalization and Bias Field Correction</h3>
+      <p>Provides essential preprocessing capabilities including intensity normalization and bias field correction to enhance image quality and standardize pixel intensities across different acquisitions.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">4</span>Slice Navigator: Navigate Through Slice Sequences</h3>
+      <p>Facilitates navigating through the slice sequence and playing the sequence as a video for comprehensive 3D visualization and analysis.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">5</span>Contrast and Brightness Changer: Visual Enhancement</h3>
+      <p>Facilitates changing contrast and brightness parameters for better visualization and improved identification of anatomical structures and pathological regions.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">6</span>Select Slice Module: Tumor Slice Selection</h3>
+      <p>Facilitates selecting specific tumor slices in the sequence for focused analysis and feature extraction.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">7</span>Thresholding Tools: MRI Image Thresholding</h3>
+      <p>Advanced thresholding capabilities using Fuzzy C-Means (FCM) clustering for precise tumor segmentation:</p>
+      
+      <div class="mathematical-section">
+        <h5>Fuzzy C-Means Thresholding Algorithm</h5>
+        
+        <h6>Input Image Representation:</h6>
+        <div class="equation">
+          \( X = \{x_1, x_2, \ldots, x_N\},\quad \mathrm{where\ } N = R \cdot C \)
+        </div>
+
+        <h6>Fuzzy C-Means Objective Function:</h6>
+        <div class="equation">
+          \( J = \sum_{i=1}^{N} \sum_{j=1}^{C} u_{ji}^m \, \lVert x_i - v_j \rVert^2 \)
+        </div>
+
+        <h6>Membership Update:</h6>
+        <div class="equation">
+          \( u_{ji} = \frac{1}{\sum_{k=1}^{C} \left( \frac{\lVert x_i - v_j \rVert}{\lVert x_i - v_k \rVert} \right)^{\frac{2}{m-1}}} \)
+        </div>
+
+        <h6>Cluster Center Update:</h6>
+        <div class="equation">
+          \( v_j = \frac{\sum_{i=1}^{N} u_{ji}^m \, x_i}{\sum_{i=1}^{N} u_{ji}^m} \)
+        </div>
+
+        <h6>Tumor Membership Map:</h6>
+        <div class="equation">
+          \( U_{\mathrm{tumor}}(x,y) = \mathrm{reshape}(u_{c,i}, R, C),\quad \mathrm{where\ } c = \arg\max(v_j) \)
+        </div>
+
+        <h6>Adaptive Thresholding:</h6>
+        <div class="equation">
+          \( T = \mathrm{adaptiveThreshold}(U_{\mathrm{tumor}}) \)
+        </div>
+
+        <h6>Post-processing (Morphology):</h6>
+        <div class="equation">
+          Closing: \( M_{\mathrm{closed}} = (M \oplus B) \ominus B \)<br>
+          Area Filtering: \( M_{\mathrm{filtered}} = \mathrm{remove\ small\ components\ < 50\ pixels} \)<br>
+          Hole Filling: \( M_{\mathrm{final}} = \mathrm{fill\ holes\ in\ } M_{\mathrm{filtered}} \)
+        </div>
+
+        <h6>Output:</h6>
+        <div class="equation">
+          \( M_{\mathrm{final}}(x,y) = \text{Segmented tumor region} \)
+        </div>
+      </div>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">8</span>Draw and Erase Tools: Manual Segmentation</h3>
+      <p>Interactive tools that facilitate drawing or erasing threshold areas for manual refinement of automated segmentation results.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">9</span>ROI Manager: Region of Interest Management</h3>
+      <p>Comprehensive tools for drawing, adjusting, and erasing ROI areas for precise tumor segmentation and region-specific analysis.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">10</span>Masking Module: Mask Generation and Application</h3>
+      <p>Facilitates generating binary mask images and applying masks to other images for focused analysis of specific anatomical regions.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">11</span>Feature Calculation Module: Radiomic and Morphological Analysis</h3>
+      <p>Advanced feature extraction capabilities for calculating comprehensive radiomic and morphological features for the entire MRI image or selected regions of interest.</p>
+    </div>
+
+    <div class="function-section">
+      <h3><span class="function-number">12</span>Output Module: Data Export and Saving</h3>
+      <p>Comprehensive save options for segmented images, skull-stripped images, mask images, and calculated features in various standard formats for further analysis and research.</p>
+    </div>
+  </main>
+</body>
+</html>

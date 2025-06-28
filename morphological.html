@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Morphological Features - GlioMap</title>
+  
+  
+  <style>
+      body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+    
+    .vertical-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    
+    .side-logo {
+      width: 100%;
+      max-width: 100px;
+      margin-bottom: 20px;
+      background-color: #ddd;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+      color: #666;
+      font-size: 12px;
+    }
+    .side-logo img {
+  max-width: 100%;
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+    
+    .vertical-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .vertical-nav li {
+      margin-bottom: 10px;
+    }
+    
+    .vertical-nav a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    
+    .vertical-nav a:hover,
+    .vertical-nav a.active {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    main {
+      margin-left: 240px;
+      padding: 20px;
+      max-width: 1000px;
+    }
+    
+    .equation {
+      text-align: center;
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #007bff;
+      border-radius: 5px;
+      font-family: 'Times New Roman', serif;
+      overflow-x: auto;
+    }
+    
+    h1 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    h2 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    h3 {
+      color: #333;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+    
+    h4 {
+      color: #007bff;
+      font-size: 2em;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    h5 {
+      text-align: center;
+      color: #999;
+      margin: 30px 0;
+    }
+    
+    h6 {
+      color: #007bff;
+      font-size: 1.1em;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    
+    ul {
+      line-height: 1.6;
+    }
+    
+    p {
+      line-height: 1.6;
+      margin: 15px 0;
+      color: #555;
+      text-align: justify;
+    }
+    
+    .function-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #fafafa;
+      border-radius: 8px;
+      border-left: 4px solid #007bff;
+    }
+    
+    .function-number {
+      background-color: #007bff;
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .mathematical-section {
+      background-color: #f8f9fa;
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .mathematical-section h5 {
+      color: #007bff;
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      border-bottom: 1px solid #007bff;
+      padding-bottom: 5px;
+    }
+    
+    code {
+      background-color: #f1f1f1;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .file-formats {
+      background-color: #e8f4fd;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #007bff;
+      margin: 15px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .vertical-nav {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+      
+      main {
+        margin-left: 0;
+      }
+      
+      .equation {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+  
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      }
+    };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+  
+   <aside class="vertical-nav">
+    <div class="side-logo">
+     <img src="logo.png" alt="GlioMap Logo">
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="main function.html">Main functions</a></li>
+      <li><a href="radiomic.html">Radiomic Features</a></li>
+      <li><a href="morphological.html" class="active">Morphological Features</a></li>
+      <li><a href="manuscript.html">Manuscript</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section>
+      <h4>Morphological Features in GlioMap</h4>
+    </section>
+
+    <section class="content">
+      <h1>Shape-Based Features</h1>
+
+      <h3>Notation</h3>
+      <ul>
+        <li>\( A \): Area (number of foreground pixels)</li>
+        <li>\( P \): Perimeter (boundary length of the object)</li>
+        <li>\( L_{\text{major}} \): Major axis length of the best-fit ellipse</li>
+        <li>\( L_{\text{minor}} \): Minor axis length of the best-fit ellipse</li>
+        <li>\( CA \): Convex area (area of convex hull around object)</li>
+        <li>\( BB_A \): Bounding box area (area of smallest rectangle enclosing object)</li>
+      </ul>
+
+      <h3>1. Area</h3>
+      <p>Measures the total number of non-zero (foreground) pixels in the binary mask:</p>
+      <div class="equation">
+        \[
+        A = \sum_{x,y} \mathbb{1}[I(x,y) > 0]
+        \]
+      </div>
+
+      <h3>2. Perimeter</h3>
+      <p>Length of the object's boundary using edge-following (e.g. <code>bwboundaries</code>):</p>
+      <div class="equation">
+        \[
+        P = \text{Length of boundary pixels}
+        \]
+      </div>
+
+      <h3>3. Compactness / Form Factor</h3>
+      <p>Measures how closely the shape resembles a perfect circle:</p>
+      <div class="equation">
+        \[
+        \text{Compactness} = \frac{4\pi A}{P^2}
+        \]
+      </div>
+
+      <h3>4. Eccentricity</h3>
+      <p>Describes elongation of the ellipse that best fits the shape:</p>
+      <div class="equation">
+        \[
+        \text{Eccentricity} = \sqrt{1 - \left(\frac{L_{\text{minor}}}{L_{\text{major}}}\right)^2}
+        \]
+      </div>
+      <p>Values near 0 indicate circular shapes, near 1 indicate line-like shapes.</p>
+
+      <h3>5. Major Axis Length</h3>
+      <p>Length of the longest diameter of the best-fit ellipse:</p>
+      <div class="equation">
+        \[
+        L_{\text{major}} = \text{Length of major axis}
+        \]
+      </div>
+
+      <h3>6. Minor Axis Length</h3>
+      <p>Length of the shortest diameter of the best-fit ellipse:</p>
+      <div class="equation">
+        \[
+        L_{\text{minor}} = \text{Length of minor axis}
+        \]
+      </div>
+
+      <h3>7. Elongation / Aspect Ratio</h3>
+      <p>Ratio of major to minor axis lengths:</p>
+      <div class="equation">
+        \[
+        \text{Elongation} = \text{AspectRatio} = \frac{L_{\text{major}}}{L_{\text{minor}}}
+        \]
+      </div>
+
+      <h3>8. Solidity</h3>
+      <p>Ratio of actual area to convex hull area, indicating how "filled" the shape is:</p>
+      <div class="equation">
+        \[
+        \text{Solidity} = \frac{A}{CA}
+        \]
+      </div>
+
+      <h3>9. Extent / Rectangularity</h3>
+      <p>Ratio of area to bounding box area, representing how well the shape fills the box:</p>
+      <div class="equation">
+        \[
+        \text{Extent} = \frac{A}{BB_A}
+        \]
+      </div>
+
+      <h3>10. Convex Area</h3>
+      <p>Area of the convex hull that encloses the object:</p>
+      <div class="equation">
+        \[
+        CA = \text{Area of smallest convex polygon containing the shape}
+        \]
+      </div>
+
+      <h5>________________________________________________________________________________________</h5>
+
+      <h1>Topology-Based Features</h1>
+
+      <h3>Notation</h3>
+      <ul>
+        <li>\( A \): Area (number of foreground pixels)</li>
+        <li>\( O \): Number of connected components (objects)</li>
+        <li>\( H \): Number of holes</li>
+        <li>\( \chi \): Euler number</li>
+        <li>\( D \): Fractal dimension</li>
+        <li>\( \mathcal{L} \): Lacunarity</li>
+        <li>\( W \): Number of watershed segments</li>
+      </ul>
+
+      <h3>1. Euler Number</h3>
+      <p>Measures object connectivity, defined as the number of objects minus number of holes:</p>
+      <div class="equation">
+        \[
+        \chi = O - H
+        \]
+      </div>
+
+      <h3>2. Number of Holes</h3>
+      <p>Holes are counted indirectly using Euler number:</p>
+      <div class="equation">
+        \[
+        H = O - \chi
+        \]
+      </div>
+
+      <h3>3. Fractal Dimension (Box-Counting)</h3>
+      <p>Quantifies self-similarity and complexity. Using box-counting method:</p>
+      <div class="equation">
+        \[
+        D = \lim_{\epsilon \to 0} \frac{\log N(\epsilon)}{\log(1/\epsilon)}
+        \]
+      </div>
+      <p>Where \( N(\epsilon) \) is the number of boxes of size \( \epsilon \) needed to cover the shape.</p>
+
+      <h3>4. Number of Objects</h3>
+      <p>Counts the number of 8-connected (2D) or 26-connected (3D) foreground regions:</p>
+      <div class="equation">
+        \[
+        O = \text{Number of connected components in } I(x,y)
+        \]
+      </div>
+
+      <h3>5. Watershed Segments</h3>
+      <p>Counts the number of distinct watershed basins from the distance-transformed binary image:</p>
+      <div class="equation">
+        \[
+        W = \text{Number of segments from watershed(-bwdist(mask))}
+        \]
+      </div>
+
+      <h3>6. Topology Index</h3>
+      <p>Normalized measure of topological complexity per unit area:</p>
+      <div class="equation">
+        \[
+        \text{TopologyIndex} = \frac{O - H}{A}
+        \]
+      </div>
+
+      <h3>7. Lacunarity</h3>
+      <p>Measures texture heterogeneity and gap distribution using the gliding-box method:</p>
+      <div class="equation">
+        \[
+        \mathcal{L} = \frac{\mathrm{Var}(M)}{\mathrm{Mean}(M)^2} + 1
+        \]
+      </div>
+      <p>Where \( M \) is the set of box masses (foreground pixel counts) over all positions.</p>
+
+      <h5>________________________________________________________________________________________</h5>
+
+      <h1>Boundary-Based Shape Features</h1>
+
+      <h3>Notation</h3>
+      <ul>
+        <li>\( P \): Actual perimeter length of the boundary</li>
+        <li>\( P_c \): Perimeter length of the convex hull of the boundary</li>
+        <li>\( k_i \): Curvature at boundary point \( i \)</li>
+        <li>\( N \): Number of boundary points</li>
+        <li>\( r_i \): Radial length from centroid to boundary point \( i \)</li>
+        <li>\( A \): Area enclosed by the shape</li>
+        <li>\( A_c \): Area of the convex hull</li>
+        <li>\( R_{eq} \): Equivalent circle radius for given area</li>
+      </ul>
+
+      <h3>1. Boundary Roughness</h3>
+      <p>Ratio of actual perimeter to convex hull perimeter:</p>
+      <div class="equation">
+        \[
+        \text{Roughness} = \frac{P}{P_c}
+        \]
+      </div>
+
+      <h3>2. Mean Absolute Curvature</h3>
+      <p>Average of the absolute curvature values along the boundary:</p>
+      <div class="equation">
+        \[
+        \text{Mean Curvature} = \frac{1}{N} \sum_{i=1}^{N} |k_i|
+        \]
+      </div>
+
+      <h3>3. Mean Radial Length</h3>
+      <p>Average distance from the centroid to each boundary point:</p>
+      <div class="equation">
+        \[
+        \text{Mean Radial Length} = \frac{1}{N} \sum_{i=1}^N r_i
+        \]
+      </div>
+
+      <h3>4. Contour Complexity</h3>
+      <p>Ratio of actual perimeter to the perimeter of an equivalent circle with the same area:</p>
+      <div class="equation">
+        \[
+        \text{Complexity} = \frac{P}{2 \pi R_{eq}}, \quad \text{where} \quad R_{eq} = \sqrt{\frac{A}{\pi}}
+        \]
+      </div>
+
+      <h3>5. Mean Distance to Boundary</h3>
+      <p>Same as mean radial length:</p>
+      <div class="equation">
+        \[
+        \text{Mean Distance} = \frac{1}{N} \sum_{i=1}^N r_i
+        \]
+      </div>
+
+      <h3>6. Minimum Distance to Boundary</h3>
+      <p>Minimum distance from centroid to boundary points:</p>
+      <div class="equation">
+        \[
+        \text{Min Distance} = \min_i r_i
+        \]
+      </div>
+
+      <h3>7. Maximum Distance to Boundary</h3>
+      <p>Maximum distance from centroid to boundary points:</p>
+      <div class="equation">
+        \[
+        \text{Max Distance} = \max_i r_i
+        \]
+      </div>
+
+      <h3>8. Standard Deviation of Distances to Boundary</h3>
+      <p>Standard deviation of distances from centroid to boundary points:</p>
+      <div class="equation">
+        \[
+        \sigma_r = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (r_i - \bar{r})^2}
+        \]
+      </div>
+
+      <h3>9. Convex Deficiency</h3>
+      <p>Normalized difference between convex hull area and actual area:</p>
+      <div class="equation">
+        \[
+        \text{Convex Deficiency} = \frac{A_c - A}{A_c}
+        \]
+      </div>
+
+      <h3>10. Bending Energy</h3>
+      <p>Sum of squared curvature values along the boundary:</p>
+      <div class="equation">
+        \[
+        \text{Bending Energy} = \sum_{i=1}^N k_i^2
+        \]
+      </div>
+
+      <h3>11. Contour Fractal Dimension (Box-Counting)</h3>
+      <p>Estimated fractal dimension of the contour boundary:</p>
+      <div class="equation">
+        \[
+        D = \lim_{\epsilon \to 0} \frac{\log N(\epsilon)}{\log(1/\epsilon)}
+        \]
+      </div>
+      <p>Where \( N(\epsilon) \) is the number of boxes of size \( \epsilon \) needed to cover the contour.</p>
+
+      <h3>12. Boundary Straightness</h3>
+      <p>Ratio of convex hull perimeter to actual perimeter:</p>
+      <div class="equation">
+        \[
+        \text{Straightness} = \frac{P_c}{P}
+        \]
+      </div>
+    </section>
+  </main>
+</body>
+</html>
