@@ -37,12 +37,12 @@
       font-size: 12px;
     }
     .side-logo img {
-  max-width: 100%;
-  width: 100px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
+      max-width: 100%;
+      width: 100px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
     
     .vertical-nav ul {
       list-style: none;
@@ -236,6 +236,15 @@
       text-align: center;
     }
     
+    .pdf-error {
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    
     footer {
       margin-top: 50px;
       padding: 20px 0;
@@ -275,7 +284,7 @@
 <body>
   
   <aside class="vertical-nav">
-    <div class="side-logo"><img src="logo1.png" alt="GlioMap Logo">
+    <div class="side-logo"><img src="logo.png" alt="GlioMap Logo">
     </div>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -295,20 +304,16 @@
       <p>View and download our research manuscript detailing the GlioMap methodology and findings.</p>
       
       <!-- Download Button -->
-      <a href="main.pdf" class="download-btn" download>Download PDF</a>
+      <a href="GlioMap v1.0 Manual.pdf" class="download-btn" download>Download PDF</a>
       
       <!-- PDF Viewer -->
       <div class="pdf-viewer">
-        <!-- For local development, you might see a placeholder -->
-        <!-- In production, replace with actual PDF path -->
-        <div class="pdf-placeholder">
-          <p><strong>PDF Viewer</strong></p>
-          <p>Manuscript PDF would be displayed here</p>
-          <p>Please use the download button above to view the full document</p>
-        </div>
-        
-        <!-- Uncomment and modify the line below when you have the correct PDF path -->
-        <!-- <iframe src="main.pdf" type="application/pdf"></iframe> -->
+        <iframe src="GlioMap v1.0 Manual.pdf" type="application/pdf" title="GlioMap Manuscript">
+          <div class="pdf-error">
+            <p><strong>PDF cannot be displayed in this browser.</strong></p>
+            <p>Please use the download button above to view the document, or try opening it in a different browser.</p>
+          </div>
+        </iframe>
       </div>
     </section>
 
